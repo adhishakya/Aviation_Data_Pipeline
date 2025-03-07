@@ -1,21 +1,18 @@
 import mysql.connector
 from dotenv import load_dotenv
 import os
+from db_connection import connect_to_db
 
 #TODO: Exception handling
 def insert_aviation_data(values):
-    load_dotenv()
-
-    db_host = os.getenv('DB_HOST')
-    db_user = os.getenv('DB_USER')
-    db_password = os.getenv('DB_PASSWORD')
-    db_database = os.getenv('DB_DATABASE')
-
+    
+    credentials = connect_to_db()
+    
     conn = mysql.connector.connect(
-        host = db_host,
-        user = db_user,
-        password = db_password,
-        database = db_database,
+        host = credentials['host'],
+        user = credentials['user'],
+        password = credentials['password'],
+        database = credentials['database'],
     )
 
     cursor = conn.cursor()
