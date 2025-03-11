@@ -1,0 +1,31 @@
+INSERT INTO aviation_data_cleaned(
+    id,
+    flight_date,
+    flight_status,
+    departure_airport,
+    departure_timezone,
+    departure_scheduled,
+    departure_estimated,
+    arrival_airport,
+    arrival_timezone,
+    arrival_scheduled,
+    arrival_estimated,
+    airline_name,
+    flight_number,
+    flight_icao
+)VALUES(
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s
+)
