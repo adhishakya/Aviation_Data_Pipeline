@@ -1,11 +1,21 @@
 import requests
-from config import getUrl
-from db_operation import insert_aviation_data
+from aviation_package.config import getUrl
+from aviation_package.db_operation import insert_aviation_data
+from airflow.models import Variable
+import logging
 
-def get_aviation_data():
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s - %(message)s')
+
+def get_aviation_data(**kwargs):
     try:
+        logging.info('Starting to fetch aviation data...')
         limit = 100
         response = requests.get(getUrl(limit))
+
+        if response.status_code != 200:
+            logging.error(f"Failed to fetch data. HTTP status code: {response.status_code}")
+            return
+        
         response_json = response.json()
 
         values = []
@@ -28,7 +38,9 @@ def get_aviation_data():
                 ]
             )
 
-        insert_aviation_data(values)
+        kwargs['ti'].xcom_push(key='aviation_data', value = values)
+
+        logging.info(f"Fetched {len(values)} records and pushed to XCom.")
     
-    except:
-        print('Failed to fetch data.')
+    except Exception as e:
+        logging.error(f"Failed to fetch data. Error: {str(e)}")
