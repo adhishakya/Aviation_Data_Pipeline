@@ -1,3 +1,4 @@
 .env
 __pycache__
 .ipynb_checkpoints
+aviation_package.egg-info
