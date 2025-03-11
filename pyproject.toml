@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aviation_package"
+version = "0.0.1"
+description = "Aviation fetching and inserting functions"
+dependencies = [
+    "requests",
+    "mysql-connector-python",
+    "pymysql"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
